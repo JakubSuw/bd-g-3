@@ -3,3 +3,5 @@ czwartek
 i kolejna zmiana 
 dev2 czwarta linia 
 
+
+nowa linia w pliku
