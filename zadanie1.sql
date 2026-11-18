@@ -1,21 +1,19 @@
-CREATE TABLE pracownik (
-	id_pracownika INT auto_increment primary key,
-	imie VARCHAR(50) not null
-);
+ALTER TABLE zadanie DROP FOREIGN KEY zadanie_ibfk_1;
+ALTER TABLE projekt DROP FOREIGN KEY menadzer_projektu;
 
-DESC pracownik;
+ALTER TABLE pracownik MODIFY id_pracownika INT NOT NULL;
+ALTER TABLE pracownik DROP PRIMARY KEY;
 
-ALTER TABLE pracownik 
-ADD COLUMN data_urodzenia DATE NOT NULL;
+ALTER TABLE pracownik MODIFY id_pracownika 
+INT NOT NULL auto_increment PRIMARY KEY;
 
-INSERT INTO pracownik (imie, nazwisko, data_urodzenia)
-VALUES 
-	("Jakub", "Nowak", "10.10.2000"),
-    ("Maciej", "Kowalski", "29.10.2003"),
-    ("Tomasz", "Lewandowski", "01.01.2001");
-    
-UPDATE pracownik 
-SET data_urodzenia = "2001.01.01" 
-WHERE id_pracownika = 3;
-    
-SELECT * FROM pracownik;
+ALTER TABLE zadanie 
+ADD CONSTRAINT fk_zadanie_pracownik
+FOREIGN KEY (pracownik_id)
+REFERENCES pracownik(id_pracownika)
+ON DELETE SET NULL;
+
+ALTER TABLE projekt
+ADD CONSTRAINT menadzer_projektu 
+FOREIGN KEY (pracownik_id)
+REFERENCES pracownik(id_pracownika);
